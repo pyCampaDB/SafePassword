@@ -1,4 +1,4 @@
-"""######################################### PACKAGES ##############################################################
+######################################### PACKAGES ##############################################################
 from subprocess import check_call, call, CalledProcessError
 from os.path import exists
 from os import chdir
@@ -94,9 +94,9 @@ def run():
         else:
             print('************************* VIRTUALVENV CONFIGURATION FINISHED *******************************************************\n')
             break
-         """
 
 
+"""
 ######################################### PACKAGES ##############################################################
 from subprocess import check_call, call, CalledProcessError
 from os.path import exists
@@ -194,6 +194,6 @@ def run():
             print('************************* CONFIGURACIÓN VIRTUALENV FINALIZADA *******************************************************\n')
             break
 
-
+"""
 
 
