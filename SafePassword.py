@@ -1,4 +1,4 @@
-############################################# IMPORTS #######################################################################
+"""############################################# IMPORTS #######################################################################
 from hashlib import md5, sha1, sha224, sha256, sha384, sha512
 from VirtualEnv.VirtualEnv import run as virtualEnv
 
@@ -82,16 +82,23 @@ def run():
 ############################################## MAIN #######################################################################
 if __name__ == '__main__':
     run()
-
-
-
 """
+
+
+
 ############################################# IMPORTS #######################################################################
-from hashlib import md5, sha1, sha224, sha256, sha384, sha512
-from VirtualEnv.VirtualEnv import run as virtualEnv
+from hashlib import new as hashNew #md5, sha1, sha224, sha256, sha384, sha512
+from base64 import b64encode
 
 
 ############################################# METHODS #######################################################################
+def encrypting(alg, password):
+    pwd = hashNew(alg)
+    pwd.update(password.encode('utf-8'))
+    pwd_hash = pwd.digest()
+    pwd_b64 = b64encode(pwd_hash)
+    return pwd_b64
+
 def codified_password(pwd, file, mode='a+'):
     print(
         '*************************************************************************************************************\n')
@@ -100,28 +107,28 @@ def codified_password(pwd, file, mode='a+'):
         passFile.write(
             '*************************************************************************************************************\n')
         passFile.write(f'[*] La contraseña es: {pwd}\n\n')
-
-        md5_pass = md5(pwd.encode('utf-8')).hexdigest()
-        print(f'[*] La contraseña en MD5 es: {md5_pass}\n')
+        
+        md5_pass = encrypting('md5', pwd)
+        print(f'[*] La contraseña en MD5 es: {md5_pass}\n\n')
         passFile.write(f'[*] La contraseña en MD5 es: {md5_pass}\n\n')
 
-        sha1_pass = sha1(pwd.encode('utf-8')).hexdigest()
-        print(f'[*] La contraseña en SHA-1 es: {sha1_pass}\n')
+        sha1_pass = encrypting('sha1', pwd)
+        print(f'[*] La contraseña en SHA-1 es: {sha1_pass}\n\n')
         passFile.write(f'[*] La contraseña en SHA-1 es: {sha1_pass}\n\n')
 
-        sha224_pass = sha224(pwd.encode('utf-8')).hexdigest()
-        print(f'[*] La contraseña en SHA-224 es: {sha224_pass}\n')
+        sha224_pass = encrypting('sha224', pwd)
+        print(f'[*] La contraseña en MD5 es: {sha224_pass}\n\n')
         passFile.write(f'[*] La contraseña en SHA-224 es: {sha224_pass}\n\n')
 
-        sha256_pass = sha256(pwd.encode('utf-8')).hexdigest()
+        sha256_pass = encrypting('sha256', pwd)
         print(f'[*] La contraseña en SHA-256 es: {sha256_pass}\n')
         passFile.write(f'[*] La contraseña en SHA-256 es: {sha256_pass}\n\n')
 
-        sha384_pass = sha384(pwd.encode('utf-8')).hexdigest()
+        sha384_pass = encrypting('sha384', pwd)
         print(f'[*] La contraseña en SHA-384 es: {sha384_pass}\n')
         passFile.write(f'[*] La contraseña en SHA-384 es: {sha384_pass}\n\n')
 
-        sha512_pass = sha512(pwd.encode('utf-8')).hexdigest()
+        sha512_pass = encrypting('sha512', pwd)
         print(f'[*] La contraseña en SHA-512 es: {sha512_pass}\n')
         passFile.write(f'[*] La contraseña en SHA-512 es: {sha512_pass}\n\n')
 
@@ -129,7 +136,6 @@ def codified_password(pwd, file, mode='a+'):
 
 
 def run():
-    virtualEnv()
     menu = '1'
 
     while menu == '1' or menu == '2' or menu == '3':
@@ -170,4 +176,3 @@ def run():
 ############################################## MAIN #######################################################################
 if __name__ == '__main__':
     run()
-"""

@@ -1,0 +1,15 @@
+*************************************************************************************************************
+[*] La contraseña es: manuee
+
+[*] La contraseña en MD5 es: b'D5QCQ1LM9K0GnlM0LmAA8w=='
+
+[*] La contraseña en SHA-1 es: b'Trh/GpCcGwO0Bf6/eYkN789myi0='
+
+[*] La contraseña en SHA-224 es: b'RZLOkEqly9lnbX2n6UkWAJtK6NnSyYpJ7vtT1A=='
+
+[*] La contraseña en SHA-256 es: b'BWYwcZxWs4v3S7hEIsQww7uLbcgWkT2vSZ57sHvvUSE='
+
+[*] La contraseña en SHA-384 es: b'gwy3JaECYTA5IhJTWRM+j4fn9vL8b8ChCYVtMwp4Dxuq5PQxUw69qPpQSKCZQoOq'
+
+[*] La contraseña en SHA-512 es: b'9f6RD5Jy4zsPTsA8RpC7j++STvrfTGILv2GoNb741Btng7LTO7sjvxZjFTk3LjaMPswRZwYZk/HHACwQ3axV5A=='
+

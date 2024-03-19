@@ -1,0 +1,75 @@
+*************************************************************************************************************
+[*] La contraseña es: Cristiano Ronaldo Dos Santos Aveiro
+
+[*] La contraseña en MD5 es: c5e169f5c4163598af58945d7d66c952
+
+[*] La contraseña en SHA-1 es: 177438ec5b36f8335d2a3f56c49067793b63b07d
+
+[*] La contraseña en SHA-224 es: 524f37ec6165b093ec640c5ec538da71e9fdc331b0236b18fbfbb665
+
+[*] La contraseña en SHA-256 es: fe22a9f57a3281a93d8da39b2fb44b0aef32efcfdb3ce08dfc405d430b7ab804
+
+[*] La contraseña en SHA-384 es: 362b3fd843d18ebf7169ef9b27af48d2cb5dcf9a7ce128cfa1028810232fae672adb2bc42da9cb646b02d929522a256b
+
+[*] La contraseña en SHA-512 es: 684d000763810368f7d678009ff4a1249de0284e9e7e45e3d7a8b4fb65070dc4b082ba2b86d801a4fd4012c1085cac0b3ea9d3f05bc42bffcaa6794dfb210fcd
+
+*************************************************************************************************************
+[*] La contraseña es: Mulhacen
+
+[*] La contraseña en MD5 es: b'qAVSXtauul6A6iUvZMEnEg=='
+
+[*] La contraseña en SHA-1 es: b'IvOfoqs7J1+SIUWYzPBIU46453s='
+
+[*] La contraseña en SHA-224 es: b'mXy0X3YHauQpfctgilnqyvzKrqllOmiOyihHCA=='
+
+[*] La contraseña en SHA-256 es: b'0VJ4dhRs/Zh9y8pwYRcQgY5IElFHHgDXms0cQTs6C4I='
+
+[*] La contraseña en SHA-384 es: b'YAtC3VHUaFqeI7d2hRyEG3XUAvezSkSYaE1f5YYGZMRGW1qAK/ReXDLJhgB54aYo'
+
+[*] La contraseña en SHA-512 es: b'LXJeWKlgWOc/nQmrYeoHUHbhe0+JoVoQSZTX0+hFnHr6xyoHb3EoZ+G6anFsEC9Ep3JS+lQJMN3iTGpwsoGK3w=='
+
+*************************************************************************************************************
+[*] La contraseña es: pythondockergit
+
+[*] La contraseña en MD5 es: b'YgX6EYHusR+/G2+bKslUDA=='
+
+[*] La contraseña en SHA-1 es: b'aHoX0v9pXGafUw8JpesABLh2Q3M='
+
+[*] La contraseña en SHA-224 es: b'Bofd4o5TSXlClcyo+3sfgs4EVgo5T6UsbvSAJQ=='
+
+[*] La contraseña en SHA-256 es: b'8RUQG5HV6dBIjSuC9bdLbloPfjxPNxLWKVhbIE3wsyw='
+
+[*] La contraseña en SHA-384 es: b'XWOobNs8z4By3hAIWigULwTa2OVFGvt2XoSPHyjfSp4reJ8qU5kSeeWo1Cd1eRuH'
+
+[*] La contraseña en SHA-512 es: b'8RU7lIARCndw5JqtRNQ/PzEUKofa3ZQ3joAuR1zYuCHZw1wElVwtMoOc3ykD9ObFH6+B5hlGMoD3Qg0O1Jl7Cg=='
+
+*************************************************************************************************************
+[*] La contraseña es: mercurio
+
+[*] La contraseña en MD5 es: b'4NbUn3+pDcD/AP6j5yk28g=='
+
+[*] La contraseña en SHA-1 es: b'vIE1wCVvRMoKtqH395u8Dc0lPUM='
+
+[*] La contraseña en SHA-224 es: b'EIg4tPSpUU98PtXMssx4ssFVI3lNXm3CM9gp6g=='
+
+[*] La contraseña en SHA-256 es: b'6zcPHlFBRi6Eoq9pniNIW+DIz6eO8Y0wqOCqgFDNvfw='
+
+[*] La contraseña en SHA-384 es: b'huhxiWEQ66Lrjq02+KrxYOJHn+j0uxCvpzWx6h2nBa1TCIP7UpxzbDSiEMU6oMSY'
+
+[*] La contraseña en SHA-512 es: b't/EKkEhjL2KNsIO8Cd0goYg+Ajt2XkMHeErjn/NV67MfDoSo3HaEnecTwZZe8NkZ31jwuOKn1rbrd9p+DWnwmQ=='
+
+*************************************************************************************************************
+[*] La contraseña es: perseo
+
+[*] La contraseña en MD5 es: b'7o7s3RJKIS7zr8QStA0LEg=='
+
+[*] La contraseña en SHA-1 es: b'+W5iI302ID7jNO4yF49TUCHesTY='
+
+[*] La contraseña en SHA-224 es: b'Vxk4CxWDF8rd4X5tWu6sGI3phW8tWKc7kGqxJw=='
+
+[*] La contraseña en SHA-256 es: b'NH/LbBr09oLn8y6u9oWEvBOGvzbGOj//gPnrTqLK5dA='
+
+[*] La contraseña en SHA-384 es: b'44k4itS4rfn4wnqBZdnjazPg1OLSdXy+aIoRZ8D6b/gJ3qryCl96bg+qsqz4DzoM'
+
+[*] La contraseña en SHA-512 es: b'XzONA+3lHQSum9l8sOMysfGmi23BxKVKPYy5JtYfi0GEkrcaEpMKwpyR3S6FgcwfpwMcQvjDhVL5Y6lXMkKspA=='
+
