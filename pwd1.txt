@@ -88,3 +88,18 @@
 
 [*] La contraseña en SHA-512 es: b'b7Oj8Nf6OPW5TZkohiC3DLH7lE0HgQIQ3oi2enJrtzfY6VBMplBrZwnnh0AlumLItvIx2xPnoQcLuwM4ZG6HUA=='
 
+*************************************************************************************************************
+[*] La contraseña es: pwd
+
+[*] La contraseña en MD5 es: b'kAPR3yLrTTggAVBwOFGUyA=='
+
+[*] La contraseña en SHA-1 es: b'N/omUzCtg+qoee+x4ttjgIls9jk='
+
+[*] La contraseña en SHA-224 es: b'lhmC/EhwVWdE4kZZVpRYl+TW7VHLDRKtwuTgJA=='
+
+[*] La contraseña en SHA-256 es: b'oRWenfNnDVSdBFJFMmKfVHfOt97sm0XkfowAlQbsssg='
+
+[*] La contraseña en SHA-384 es: b'iYeGA/LdBmiN9qe3RGLDWR16ZRRTIYY+4YOL1pxLKTZUwH8e2l5DrdURkcIMqozo'
+
+[*] La contraseña en SHA-512 es: b'7hBn0sVNiwlbt7OTeqQJaMw0deQ2BDOov4FiF+gjJx/MnnIi3Z5Xr7VnXZmbiPSVdO2OajgzsUN5EOmrp7ZXXw=='
+
