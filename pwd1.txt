@@ -73,3 +73,18 @@
 
 [*] La contraseña en SHA-512 es: b'XzONA+3lHQSum9l8sOMysfGmi23BxKVKPYy5JtYfi0GEkrcaEpMKwpyR3S6FgcwfpwMcQvjDhVL5Y6lXMkKspA=='
 
+*************************************************************************************************************
+[*] La contraseña es: uchiha madara
+
+[*] La contraseña en MD5 es: b'ycYhp7PnfuYsv8rpIv9bRQ=='
+
+[*] La contraseña en SHA-1 es: b'2gdhZrxSfYRyXsjsRYaCBh8BGg0='
+
+[*] La contraseña en SHA-224 es: b'xcPbWneS0yplw7VCDCtq2E6BpTdd7vIec10CKA=='
+
+[*] La contraseña en SHA-256 es: b'nEMktU4psM6sZdHREh0S5kn0PqqS/6e7Zn58EN28PAA='
+
+[*] La contraseña en SHA-384 es: b'A3EYS+O2UJ0bFiYIzl7JefknnFAgYl7sSxVxDEzZCosUC1wTyTCetDNZHplEF/dP'
+
+[*] La contraseña en SHA-512 es: b'b7Oj8Nf6OPW5TZkohiC3DLH7lE0HgQIQ3oi2enJrtzfY6VBMplBrZwnnh0AlumLItvIx2xPnoQcLuwM4ZG6HUA=='
+
