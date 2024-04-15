@@ -1,11 +1,16 @@
-################################################# PACKAGES ####################################################################
-from subprocess import check_call, CalledProcessError, run as runSubprocess
+from subprocess import check_call, CalledProcessError, run as runSubprocess, check_output
 from os.path import exists
-from os import getenv
+from os import getenv, getcwd
+from pkg_resources import  VersionConflict, DistributionNotFound
+from signal import signal, SIGINT
 #from getpass import getpass
 
 
-################################################# METHODS ##############################################################################3
+#########################################################################################################################################3
+# evita salir del script al ejecutar Ctrl+C
+def signal_handler(sign, frame):
+    print('Ctrl+C pressed')
+
 def ensure_pipenv_installed():
     try:
         check_call(['pipenv', '--version'])
@@ -23,38 +28,87 @@ def manage_and_use_env():
         print('Pipfile exists. Environment ready.\n')
 
 
+def check_package_installed(package):
+    try:
+        check_output(['pipenv', 'run', 'pip', 'show', package])
+        return True
+    except CalledProcessError:
+        return False
 #Function to install a single package using pipenv
 def install_package_with_pipenv(package):
-    try:
-        check_call(['pipenv', 'install', package])
-    except CalledProcessError:
+    b = check_package_installed(package)
+    if b:
+        print(f'\n{package} already installed\n')
+    else:
+        print(f'\nInstalling {package}...') 
         try:
-            runSubprocess(f'pip install {package}', shell=True, check=True)
-            
             runSubprocess(f'pipenv install {package}', shell=True, check=True)
-        except Exception:
-            print('\nNot possible\n')
+            print(f'\n{package} was installed successfully\n')
+        except DistributionNotFound:
+            print(f"\nThe package {package} doesn't exist.\nInstalling package...\n")
+            runSubprocess(f'pipenv install {package}', shell=True, check=True)
+        except VersionConflict as vc:
+            installed_version = vc.dist.version
+            required_version = vc.req
+            print(f"\nA version's conflict detected:\n"
+                f"Version installed: {installed_version}"
+                f"Version required: {required_version}"
+                "Trying to install the package required\n")
+            runSubprocess(f'pipenv install --upgrade {package}', shell=True, check=True)
+        except CalledProcessError as cp:
+            print(f"\nAn error occurred: {cp.returncode}\n")
 
 #Function to install all packages from a requirements.txt file using pipveng
 def install_packages_from_file_with_pipenv(file):
-    check_call(['pipenv', 'install', '-r', f'{file}.txt'])
+    with open (f'{getcwd()}\\{file}.txt', 'r') as myFile:
+        for package in myFile.readlines():
+            install_package_with_pipenv(package.strip())
 
-def run_script(file):
+        myFile.close()
+    
+
+def uninstall_package():
+    package = input('Enter the package name: ')
     try:
-        runSubprocess(['pipenv', 'run', 'python', f'{file}.py'])
-    except CalledProcessError as e:
-        print(f'An error occurred: {e.stderr.decode()}')
+        runSubprocess(f'pipenv uninstall {package}', shell=True, check=True)
+    except CalledProcessError as cp:
+        print(f'An error occurred: {cp.returncode}')
 
+
+def check_packages_installed():
+    try:
+        runSubprocess('pipenv graph', shell=True, check=True)
+    except CalledProcessError as e:
+        print(f'An error occurred: {e.returncode}')
+
+
+def delete_pipenv():
+    try:
+        runSubprocess('pipenv --rm', shell=True, check=True)
+        runSubprocess('del Pipfile', shell=True, check=True)
+        runSubprocess('del Pipfile.lock', shell=True, check=True)
+    except CalledProcessError as e:
+        print(f'An error occurred: {e.returncode}')
+
+def pipenv_run():
+    opt = input('pipenv run [your command]. [your command] = ')
+
+    try:
+        runSubprocess(f'pipenv run {opt}', shell=True, check=True)
+    except CalledProcessError as e:
+        print(f'An error occurred: {e.returncode}')
+def run_script():
+    try:
+        runSubprocess(f'pipenv run python {input("Enter the file name: ")}.py',
+                      shell=True, check=True)
+    except CalledProcessError as cp:
+        print(f'An error occurred: {cp.returncode}')
 
 
 def upload_docker():
-    #username = input('Enter your Docker username: ')
     username = getenv('DOCKER_USERNAME', default='default_username')
     pwd = getenv('DOCKER_PASSWORD', default='default_password')
-    #pwd = getpass('Enter your Docker password: ')
-
     try:
-        print('\nLogging...\n')
         runSubprocess(['docker', 'login', '--username', username, '--password', pwd], check=True)
 
         dockerfile_contents = f"""
@@ -73,9 +127,6 @@ COPY Pipfile Pipfile.lock /app/
 #Installing depends in the system
 RUN pipenv install --system --deploy
 
-#Install Jupyter
-RUN pip install jupyter ipykernel
-
 #Copy all the files
 COPY . /app
 
@@ -84,7 +135,7 @@ EXPOSE 8888
 
 ENV NAME PipEnvironment
 
-CMD pipenv run python pipenDockerGit.py
+CMD pipenv run python pipenvDockerGit.py
     """
         image_name = input('Enter the name of your image: ')
 
@@ -93,25 +144,24 @@ CMD pipenv run python pipenDockerGit.py
             file.write(dockerfile_contents)
             file.close()
         print('\nBuilding image...\n')
-        runSubprocess(f'docker build -t {image_name} .', shell=True, check=True)
+        runSubprocess(f'docker build -t {image_name}:latest .', shell=True, check=True)
         print('\nImage built.\n')
         runSubprocess(f'docker push {image_name}', shell=True, check=True)
         print('\nImage uploaded to DockerHub.\n')
 
 
     except CalledProcessError as cp:
-        print(f'CalledProcessError: {cp.stderr}')
+        print(f'CalledProcessError: {cp.returncode}')
     except Exception as e:
-        print(f'Exception: {e}')
+        print(f'Exception: {e.__str__}')
 
 def upload_github():
     try:
-        print('\nemail\n')
         email = getenv("GITHUB_EMAIL", default='default_email')
         runSubprocess(f'git config --global user.email "{email}"',
                       shell=True, check=True)
         print('\nname')
-        username=getenv("GITHUB_USERNAME", default='default_username')
+        username = getenv("GITHUB_USERNAME", default='default_username')
         runSubprocess(f'git config --global user.name "{username}"',
                       shell=True, check=True)
         runSubprocess('git init', shell=True, check=True)
@@ -119,84 +169,123 @@ def upload_github():
         runSubprocess('git status', shell=True, check=True)
         print('\ngit add .\n')
         runSubprocess('git add .', shell=True, check=True)
-        print('\ngit commit\n')
-        commit=input('Enter commit message: ')
-        runSubprocess('git commit -m "test commit"', shell=True, check=True)
-        print('\ngit branch\n')
-        runSubprocess('git branch -M main', shell=True, check=True)
-        first_commit = ''
-        while first_commit not in ['Y', 'y', 'N', 'n']:
-            first_commit = input('If your first commit? [Y/N]: ')
-            if first_commit not in ['Y', 'y', 'N', 'n']:
+        commit = input('Enter commit message: ')
+        runSubprocess(f'git commit -m "{commit}"', shell=True, check=True)
+
+        first_upload = ''
+        while first_upload not in ['Y', 'y', 'N', 'n']:
+            first_upload = input('Enter if it is your first commit [Y/N]: ')
+            if first_upload not in ['Y', 'y', 'N', 'n']:
                 print('\nInvalid option\n')
-        if first_commit == ['Y', 'y', 'N', 'n']:
-            repo = input('Enter your repository name: ')
-            my_git = f'https://github.com/pyCampaDB/{repo}.git'
-            runSubprocess(f'git remote add origin {my_git}',
-                                 shell=True, check=True, capture_output=True)
+        
+        if first_upload in ['Y', 'y']:
+            branch = input('Enter your branch: ')
+            runSubprocess(f'git branch -M {branch}', shell=True, check=True)
+            my_git = input('Enter repository name: ')
             print('\nremote add origin\n')
-        else:
-            runSubprocess('git pull origin main', shell=True, check=True)
-            print('\npull\n')
-        #
-        print('\npushing...\n')
+            runSubprocess(f'git remote add origin https://github.com/pyCampaDB/{my_git}.git',
+                shell=True, check=True, capture_output=True)
+
+        print('\npush\n')
         runSubprocess(f'git push -u origin main', shell=True, check=True)
         print('\nProject uploaded to GitHub\n')
     except CalledProcessError as cp:
-        print(f'\nCalledProcessError: {cp.stderr}\n')
+        print(f'\nCalledProcessError: {cp.returncode}\n')
     except Exception as e:
-        print(f'Exeption: {e}')
+        print(f'Exeption: {e.__str__}')
 
+
+def cmd():
+    command = input(f'{getcwd()}: ')
+    try:
+        runSubprocess(command, shell=True, check=True)
+    except CalledProcessError as cp:
+        print(f'An error occurred: {cp.returncode}')
+    finally:
+        return command
 
 def run():
+    signal(SIGINT, signal_handler)
+
     ensure_pipenv_installed()
     manage_and_use_env()
-    option = '3'
-    while option not in ['1', '2']:
-        option = input('\n1. Run script'
-                       '\n2. Settings pipenv'
-                       '\nEnter your choice: ')
-        if option not in ['1', '2']:
-            print('\ninvalid option\n')
-    if option == '2':
-        menu = '1'
-        while menu in ['1', '2']:
-            menu = input('\n1. Install an only package'
-                         '\n2. Install all packages written in the file'
-                         '\n(Other). Exit setting pipenv and run script'
-                         '\nEnter your choice: ')
-            if menu=='1':
-                package = input('\nEnter package name: ')
-                install_package_with_pipenv(package)
-            elif menu=='2':
-                file = input('\nEnter the file name: ')
-                install_packages_from_file_with_pipenv(file)
-            else:
-                break
-    from dotenv import load_dotenv
-    load_dotenv()
-    file = input('\nEnter file name: ')
-    run_script(file)
+    option = '1'
+    while option in ['1', '2', '3', '4', '5']:
 
-    docker_option = '9'
-    while docker_option not in ['Y', 'y', 'N', 'n']:
-        docker_option = input('Do you want to upload this project to Docker? [Y/N]: ')
-        if docker_option not in ['Y', 'y', 'N', 'n']:
-            print('\nInvalid option\n')
-    if docker_option in ['Y', 'y']:
-        upload_docker()
-    else:
-        print('\nDocker pass...\n')
+        option = input( '\n1. CMD'
+                        '\n2. Run Script'
+                        '\n3. Settings pipenv'
+                        '\n4. Upload project to Docker Hub'
+                        '\n5. Upload project to GitHub'
+                        '\n(Other). Exit\n'
+                        '\nEnter your choice: ')
 
-    git_option = '9'
-    while git_option not in ['Y', 'y', 'N', 'n']:
-        git_option = input('Do you want to upload this project to GitHub? [Y/N]: ')
-        if git_option not in ['Y', 'y', 'N', 'n']:
-            print('\nInvalid option\n')
-    if git_option in ['Y', 'y']:
-        upload_github()
-    else:
-        print('\nGit pass...\n')
+        if option == '1':
+            try:
+                while True:
+                    a = cmd()
+                    if a.lower() == 'exit':
+                        break                 
+            except EOFError:
+                pass
+        elif option == '2':
+            run_script()
+
+        elif option == '3':
+            menu = '1'
+            while menu in ['1', '2', '3', '4', '5', '6']:
+
+                menu = input('\n*********************************** PIPENV SETTINGS ***********************************\n\n'
+                             '\n1. Install an only package'
+                             '\n2. Install all packages written in the file'
+                             '\n3. Check your packages already installed'
+                             '\n4. Uninstall a package'
+                             '\n5. Restart your virtual environment'
+                             '\n6. Execute your pipenv command'
+                             '\n(Other). Exit\n'
+                             '\nEnter your choice: ')
+                
+                if menu=='1':
+                    package = input('\nEnter package name: ')
+                    install_package_with_pipenv(package)
+                elif menu=='2':
+                    file = input('\nEnter the file name: ')
+                    install_packages_from_file_with_pipenv(file)
+                elif menu=='3':check_packages_installed()
+                elif menu=='4':uninstall_package()
+                elif menu=='5':
+                    delete_pipenv()
+                    manage_and_use_env()
+                elif menu=='6': pipenv_run()
+            print('\n***************************************** EXIT DJANGO SETTINGS *****************************************\n')
+        
+    
+    
+        elif option in ['4', '5']:
+            from dotenv import load_dotenv
+            load_dotenv()
+            
+            if option == '4':
+                docker_option = '9'
+                while docker_option not in ['Y', 'y', 'N', 'n']:
+                    docker_option = input('Do you want to upload this project to Docker? [Y/N]: ')
+                    if docker_option not in ['Y', 'y', 'N', 'n']:
+                        print('\nInvalid option\n')
+                if docker_option in ['Y', 'y']:
+                    upload_docker()
+                else:
+                    print('\nDocker pass...\n')
+
+            elif option == '5':
+                git_option = '9'
+                while git_option not in ['Y', 'y', 'N', 'n']:
+                    git_option = input('Do you want to upload this project to GitHub? [Y/N]: ')
+                    if git_option not in ['Y', 'y', 'N', 'n']:
+                        print('\nInvalid option\n')
+                if git_option in ['Y', 'y']:
+                    upload_github()
+                else:
+                    print('\nGit pass...\n')
 
 ############################################# MAIN ##########################################################################
 if __name__ == '__main__':
