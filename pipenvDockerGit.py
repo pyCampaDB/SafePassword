@@ -116,15 +116,7 @@ def run_script():
 def upload_docker():
     username = getenv('DOCKER_USERNAME', default='default_username')
     pwd = getenv('DOCKER_PASSWORD', default='default_password')
-    req = input('Do you have the file requirements.txt? [Y/N]: ')
-    if req in ['Y', 'y']:
-        req = 'requirements.txt'
-        install_req = f'pipenv install -r {req}'
-    else:
-        req = ''
-        install_req = ''
-
-    
+   
     try:
         runSubprocess(['pipenv','run','docker', 'login', '--username', username, '--password', pwd], check=True)
 
@@ -139,7 +131,7 @@ WORKDIR /app
 RUN pip install pipenv
 
 #Copy our Pipfile and Pipfile.lock
-COPY Pipfile Pipfile.lock {req} /app/
+COPY Pipfile Pipfile.lock requirements.txt /app/
 
 
 #Copy all the files
@@ -148,7 +140,7 @@ COPY . /app
 #Installing depends in the system
 RUN pipenv install --system --deploy
 
-{install_req}
+RUN pipenv install -r requirements.txt
 #Expose the port 8888
 EXPOSE 8888
 
@@ -294,17 +286,6 @@ def exec_it():
     except CalledProcessError as cp:
         print(f'An error occurred: {cp.returncode}')
 
-def show_logs():
-    container = input('\nEnter the ID of the container: ')
-    try:
-        runSubprocess(
-            f'pipenv run docker logs {container}',
-            shell=True,
-            check=True
-        )
-    except CalledProcessError as cp:
-        print(f'\nAn error occurred: {cp.returncode}')
-
 def docker_inspect():
     command = input(
         'Enter the parameters:'
@@ -318,6 +299,18 @@ def docker_inspect():
         )
     except CalledProcessError as cp:
         print(f'An error occurred: ')
+
+
+def show_logs():
+    container = input('\nEnter the ID of the container: ')
+    try:
+        runSubprocess(
+            f'pipenv run docker logs {container}',
+            shell=True,
+            check=True
+        )
+    except CalledProcessError as cp:
+        print(f'\nAn error occurred: {cp.returncode}')
 
 def docker_pull():
     option = ''
@@ -713,7 +706,7 @@ def run():
                                 '\n4. Uninstall a package'
                                 '\n5. Restart your virtual environment'
                                 '\n6. Execute your pipenv command'
-                                '\n7. Delete your virtual environment'
+                                '\n7. Delete the virtual environment'
                                 '\n(Other). Exit\n'
                                 '\nEnter your choice: ')
                     
@@ -728,7 +721,6 @@ def run():
                         delete_pipenv()
                         manage_and_use_env()
                     elif menu=='6': pipenv_run()
-                    elif menu=='7': delete_pipenv()
                 print('\n***************************************** EXIT PIPENV SETTINGS *****************************************\n')
             
         
@@ -740,13 +732,13 @@ def run():
                 if option == '4':
                     docker_option = '1'
                     while docker_option in ['1', '2', '3', '4', '5', '6', '7', 
-                                            '8', '9', '10', '11', '12', '13']:
+                                            '8', '9', '10', '11', '12', '13', '14']:
                         docker_option = input('\n******************** DOCKER: ********************\n'
                                             '1. Upload an image to Docker Hub\n'
                                             '2. Run a docker container\n'
                                             '3. Start docker container\n'
                                             '4. Stop docker container\n'
-                                            '5. Restart docker contaienr\n'
+                                            '5. Restart docker container\n'
                                             '6. Show the containers executing\n'
                                             '7. Show all containers in your repository\n'
                                             '8. Show all the images in your repository\n'                                          
