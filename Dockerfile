@@ -9,13 +9,15 @@ WORKDIR /app
 RUN pip install pipenv
 
 #Copy our Pipfile and Pipfile.lock
-COPY Pipfile Pipfile.lock /app/
+COPY Pipfile Pipfile.lock  /app/
+
+
+#Copy all the files
+COPY . /app
 
 #Installing depends in the system
 RUN pipenv install --system --deploy
 
-#Copy all the files
-COPY . /app
 
 #Expose the port 8888
 EXPOSE 8888
