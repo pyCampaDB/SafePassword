@@ -103,3 +103,18 @@
 
 [*] La contraseña en SHA-512 es: b'7hBn0sVNiwlbt7OTeqQJaMw0deQ2BDOov4FiF+gjJx/MnnIi3Z5Xr7VnXZmbiPSVdO2OajgzsUN5EOmrp7ZXXw=='
 
+*************************************************************************************************************
+[*] La contraseña es: naruto
+
+[*] La contraseña en MD5 es: b'z57lvLNrSTbdcGTumy8Tng=='
+
+[*] La contraseña en SHA-1 es: b'IL7tYfXWQ2i5q6ZukaHSoJCg1K4='
+
+[*] La contraseña en SHA-224 es: b'VwrCJMeyzr2XfS427Ez1OqqBxJ2I/+8o82us+w=='
+
+[*] La contraseña en SHA-256 es: b'hG9qdv/BEVUvHJyjoG2YnQycm3nE/CX/Z/Yge+USlVw='
+
+[*] La contraseña en SHA-384 es: b'aa1HSSXCaFUJPkgXEDMBUDSarSesRYZZtFQ99xm3x++yW4L9jwSFSY1T8iXGu91w'
+
+[*] La contraseña en SHA-512 es: b'IPPiTiF5huWg3jamtBJ+DC/U696yWkg5GeN97iYut8o8Nuj6kJfqHLcRWIxZ/KU27BivUGNWtKZVWCewuVsESw=='
+

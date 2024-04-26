@@ -103,7 +103,7 @@ def codified_password(pwd, file, mode='a+'):
     print(
         '*************************************************************************************************************\n')
     print(f'[*] La contraseña es: {pwd}\n')
-    with open(f'{file}.txt', mode) as passFile:
+    with open(f'./myapp/{file}.txt', mode) as passFile:
         passFile.write(
             '*************************************************************************************************************\n')
         passFile.write(f'[*] La contraseña es: {pwd}\n\n')
@@ -150,13 +150,13 @@ def run():
             codified_password(pwd.strip(), file)
 
         elif menu == '2':
-            passwords = open('familiar passwords.txt', 'r')
+            passwords = open('./myapp/familiar passwords.txt', 'r')
             file = input('Introduzca el nombre de su archivo: ')
             for pwd in passwords.readlines():
                 codified_password(pwd.strip(), file)
 
         elif menu == '3':
-            passwords = open('familiar passwords.txt', 'r')
+            passwords = open('./myapp/familiar passwords.txt', 'r')
             familiar = False
             pwd = input('Introduzca su contraseña: ')
             for p in passwords.readlines():
