@@ -2,9 +2,9 @@ logs/
 .idea/
 .env
 .dockerignore
-functions/__pycache__
-functions/cmd_and_run/__pycache__
-functions/dockercompose/__pycache__
-functions/git/__pycache__
-functions/settings_docker/__pycache__
-functions/settings_pipenv/__pycache__
+functions/__pycache__/
+functions/cmd_and_run/__pycache__/
+functions/dockercompose/__pycache__/
+functions/git/__pycache__/
+functions/settings_docker/__pycache__/
+functions/settings_pipenv/__pycache__/
